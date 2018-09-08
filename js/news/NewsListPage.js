@@ -4,7 +4,6 @@ import * as Color from "../utils/Color";
 import * as Size from "../utils/Size";
 
 const {width, height} =  Dimensions.get('window');
-//const {width, height} =  require('window');
 
 export default class NewsListPage extends Component {
     constructor(props) {
