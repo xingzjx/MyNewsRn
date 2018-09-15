@@ -46,7 +46,7 @@ export default class NewsPage extends Component {
                          activeTabStyle={{backgroundColor: Color.white}}
                          activeTextStyle={{color: Color.main_red}}
                          textStyle={{color: 'black'}}>
-                        <NewsListPage type='国际' navigation={this.props.navigation}/>
+                        <NewsListPage type='guoji' navigation={this.props.navigation}/>
                     </Tab>
                     <Tab heading="娱乐" tabStyle={{backgroundColor: Color.white}}
                          activeTabStyle={{backgroundColor: Color.white}}

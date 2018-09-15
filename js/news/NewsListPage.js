@@ -1,31 +1,47 @@
 import React, {Component} from "react";
-import {View, Text, StyleSheet, FlatList, TouchableOpacity,Image,Dimensions} from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    FlatList,
+    TouchableOpacity,
+    Image,
+    Dimensions,
+    TouchableHighlight,
+    ToastAndroid
+} from 'react-native';
 import * as Color from "../utils/Color";
 import * as Size from "../utils/Size";
 
-const {width, height} =  Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 export default class NewsListPage extends Component {
+
+    static defaultProps = {
+        url: 'http://v.juhe.cn/toutiao/index?key=d78b502268f7456b79fbe7228cecdd46&type='
+    };
+
     constructor(props) {
         super(props);
         this.state = {
-            data: [{
-                thumbnail_pic_s: "http://06.imgmini.eastday.com/mobile/20180621/20180621185141_f561ba39d77a3362e95ae7c816dce18e_1_mwpm_03200403.jpg",
-                title: 'tittitletitletitletitletitletitletitltittitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitleleetitletitletitletitletitletitletitletitletitlele',
-                date: "2018-06-21 18:51",
-                author_name: '金十数据',
-                uniquekey: 'da',
-                url: 'http://xiaweizi.cn'
-            }, {
-                thumbnail_pic_s: "http://06.imgmini.eastday.com/mobile/20180621/20180621185141_f561ba39d77a3362e95ae7c816dce18e_1_mwpm_03200403.jpg",
-                title: 'tittitletitletitletitletitletitletitltittitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitleleetitletitletitletitletitletitletitletitletitlele',
-                date: "2018-06-21 18:51",
-                author_name: '金十数据2',
-                uniquekey: 'da',
-                url: 'http://xiaweizi.cn'
-            }]
+            data: [
+            //     {
+            //     thumbnail_pic_s: "http://06.imgmini.eastday.com/mobile/20180621/20180621185141_f561ba39d77a3362e95ae7c816dce18e_1_mwpm_03200403.jpg",
+            //     title: 'tittitletitletitletitletitletitletitltittitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitleleetitletitletitletitletitletitletitletitletitlele',
+            //     date: "2018-06-21 18:51",
+            //     author_name: '金十数据',
+            //     uniquekey: 'da',
+            //     url: 'http://xiaweizi.cn'
+            // }, {
+            //     thumbnail_pic_s: "http://06.imgmini.eastday.com/mobile/20180621/20180621185141_f561ba39d77a3362e95ae7c816dce18e_1_mwpm_03200403.jpg",
+            //     title: 'tittitletitletitletitletitletitletitltittitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitleleetitletitletitletitletitletitletitletitletitlele',
+            //     date: "2018-06-21 18:51",
+            //     author_name: '金十数据2',
+            //     uniquekey: 'da',
+            //     url: 'http://xiaweizi.cn'
+            // }
+            ]
         };
-
 
 
     };
@@ -41,9 +57,37 @@ export default class NewsListPage extends Component {
         );
     }
 
+    componentDidMount() {
+        this.getData();
+
+    }
+
+
+    getData() {
+        let url = 'http://v.juhe.cn/toutiao/index?key=d78b502268f7456b79fbe7228cecdd46&type=';
+        fetch(url + this.props.type)
+            .then((response) => response.json())
+            .then((response) => {
+                console.log('response', response);
+                if(response.error_code== 0) {
+                    this.setState({
+                        data:response.result.data,
+
+                    });
+                }
+
+            })
+            .catch((error) => {
+                console.log('error', error);
+            })
+    }
+
 
     getItemView(item) {
-        return (<TouchableOpacity activeOpacity={0.8}>
+        return (<TouchableOpacity activeOpacity={0.8} onPress={() => {
+            // ToastAndroid.show('aaa',1);
+            this.getData();
+        }}>
             <View style={styles.item}>
                 <View style={styles.news_content}>
                     <Text style={styles.new_title} numberOfLines={3}>
