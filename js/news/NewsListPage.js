@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import * as Color from "../utils/Color";
 import * as Size from "../utils/Size";
+// import NewsDetailPage from "./NewsDetailPage";
 
 const {width, height} = Dimensions.get('window');
 
@@ -40,7 +41,10 @@ export default class NewsListPage extends Component {
             //     uniquekey: 'da',
             //     url: 'http://xiaweizi.cn'
             // }
-            ]
+            ],
+            refreshing:false,
+            loadingVisible:true,
+            navigation: props.navigation,
         };
 
 
@@ -51,7 +55,7 @@ export default class NewsListPage extends Component {
             <View style={styles.container}>
                 <FlatList
                     data={this.state.data}
-                    renderItem={({item}) => this.getItemView(item)}
+                    renderItem={({item}) => this.getItemView(item, this.state.navigation)}
                 />
             </View>
         );
@@ -72,6 +76,8 @@ export default class NewsListPage extends Component {
                 if(response.error_code== 0) {
                     this.setState({
                         data:response.result.data,
+                        loadingVisible:false,
+                        refreshing:false,
 
                     });
                 }
@@ -83,10 +89,14 @@ export default class NewsListPage extends Component {
     }
 
 
-    getItemView(item) {
+    getItemView(item, navigation) {
         return (<TouchableOpacity activeOpacity={0.8} onPress={() => {
-            // ToastAndroid.show('aaa',1);
-            this.getData();
+            // ToastAndroid.show(''+ item.title,1);
+            navigation.navigate('NewsDetailPage', {
+                url: item.url,
+                title:item.title,
+
+            })
         }}>
             <View style={styles.item}>
                 <View style={styles.news_content}>

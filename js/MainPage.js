@@ -5,6 +5,7 @@ import NewsPage from "./news/NewsPage";
 import JokerPage from "./joker/JokerPage";
 import TodayPage from "./today/TodayPage";
 import RobotPage from "./robot/RobotPage";
+import NewsDetailPage from "./news/NewsDetailPage";
 
 export default class MainPage extends Component {
     constructor(props) {
@@ -136,7 +137,9 @@ const Navigator = createStackNavigator({
     Tab: {
         screen: Tab,
     },
-
+    NewsDetailPage: {
+        screen: NewsDetailPage
+    },
 }, navigationOptions);
 
 
