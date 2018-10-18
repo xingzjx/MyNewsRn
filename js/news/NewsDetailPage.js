@@ -49,7 +49,7 @@ export default class NewsDetailPage extends Component {
                         startInLoadingState={true}
                         domStorageEnabled={true}//开启dom存贮
                         javaScriptEnabled={true}//开启js
-                        style={styles.webview_style}
+                        // style={styles.webview_style}
                         onLoad={(e) => console.log('onLoad')}
                         onLoadEnd={(e) => console.log('onLoadEnd')}
                         onLoadStart={(e) => console.log('onLoadStart')}>
